@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { defaults } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+//import { defaults } from 'react-chartjs-2';
 
 
 function chartDataFunction(stateData, stateData2, stateDate) {
@@ -66,6 +67,7 @@ function chartDataFunction(stateData, stateData2, stateDate) {
 }
 
 const options = {
+  animation: false,
   responsive: true,
   maintainAspectRatio: false,
   scales: {
@@ -108,11 +110,12 @@ class App extends Component {
     this.state = {
       step: 0,
       date: [],
-      data: [],
+      data1: [],
       data2: [],
-      dataFile: [],
+      signal1: [],
+      signal2: [],
       chartData: {},
-      flag: false
+      length: 0
     };
     //this.manageData = this.manageData.bind(this);
   }
@@ -131,36 +134,41 @@ callBackendAPI = async () => {
   componentDidMount() {    
     this.callBackendAPI()
       .then(res => this.setState({ 
-          dataFile: res.express.split("\r\n"),
-          flag: true 
+          signal1: res.signal1,
+          signal2: res.signal2,
+          length: res.length 
         },
         () => {
-          setInterval(() => {  
+          const draw = setInterval(() => {  
             const {
-              dataFile,
+              signal1,
+              signal2,
               step,
-              data,
+              data1,
               data2,
-              date
+              date,
+              length
             } = this.state;
-            const newData = [...dataFile.slice(step, step+1)]; 
-            const newData2 = [...dataFile.slice(step+10, step+11)];
+            const newData1 = signal1[step+1].toString(); 
+            const newData2 = signal2[step+1].toString();
             const newDate = new Date(); 
             if (step > 50){
               this.setState({
-                  data: data.shift(),
+                  data1: data1.shift(),
                   data2: data2.shift(),
                   date: date.shift()
               });  
             }
-
+            
             this.setState({
-                  data: [...data, ...newData],
-                  data2: [...data2, ...newData2],
+                  data1: [...data1, newData1],
+                  data2: [...data2, newData2],
                   date: [...date, newDate.getSeconds()],
-                  chartData: chartDataFunction(data, data2, date),
+                  chartData: chartDataFunction(data1, data2, date),
                   step: step + 1         
-             });     
+             });    
+       
+             if (step >= length-2) clearInterval(draw);
           }, 100);    
         }
       ))      
@@ -176,10 +184,15 @@ callBackendAPI = async () => {
 
     return (
       <div className="App">
-          <Line             
+          {/* <Line             
               data={this.state.chartData}      
               options={options}        
-              width={600} height={600}
+              //width={1200} height={1200}
+          /> */}
+          <Bar            
+              data={this.state.chartData}      
+              options={options}        
+              width={300} height={600}
           />
       </div>
     );
