@@ -1,8 +1,154 @@
 import React, { Component } from 'react';
-import Highcharts from 'highcharts'
-import HighchartsStock from 'highcharts/highstock'
-import HighchartsReact from 'highcharts-react-official'
+import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+//import { defaults } from 'react-chartjs-2';
 
+
+function chartDataFunction(stateData, stateData2, stateDate) {
+  return {
+    labels: stateDate,
+    datasets: [
+      {
+        label: 'Signal 1',
+        /*fillColor: 'rgba(220,220,220,0.2)',
+        strokeColor: 'rgba(220,220,220,1)',
+        pointColor: 'rgba(220,220,220,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',*/
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: stateData
+      },
+      {
+        label: 'Signal 2',
+        /*fillColor: 'rgba(151,187,205,0.2)',
+        strokeColor: 'rgba(151,187,205,1)',
+        pointColor: 'rgba(151,187,205,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(151,187,205,1)',*/
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(175,92,92,0.4)',
+        borderColor: 'rgba(175, 92,92,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: stateData2,
+      }
+    ]
+  }
+}
+
+function singleChartDataFunction(stateData, stateData2, stateDate) {
+  return {
+    labels: [],
+    datasets: [
+      {
+        label: 'Signal 1',
+        /*fillColor: 'rgba(220,220,220,0.2)',
+        strokeColor: 'rgba(220,220,220,1)',
+        pointColor: 'rgba(220,220,220,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',*/
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [stateData]
+      },
+      {
+        label: 'Signal 2',
+        /*fillColor: 'rgba(151,187,205,0.2)',
+        strokeColor: 'rgba(151,187,205,1)',
+        pointColor: 'rgba(151,187,205,1)',
+        pointStrokeColor: '#fff',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(151,187,205,1)',*/
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(175,92,92,0.4)',
+        borderColor: 'rgba(175, 92,92,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [stateData2],
+      }
+    ]
+  }
+}
+
+const options = {
+  
+  animation: false,
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+      yAxes: [{
+          ticks: {
+            min: -100,
+            max: 100
+          }
+    }]
+  },
+}
+
+const styles = {
+  graphContainer: {
+    border: '1px solid black',
+    padding: '15px'
+  }
+}
 
 class App extends Component {
   constructor(props) {
@@ -10,61 +156,16 @@ class App extends Component {
     this.state = {
       step: 0,
       date: [],
-      data: [],
+      data1: [],
       data2: [],
       signal1: [],
       signal2: [],
-      length: 0,
-      chartData: {},
-      chartOptions1: {
-        chart:{
-            height: 700,
-            animation: false
-        },
-        xAxis: {
-          categories: [],
-        },
-        series: [
-          { data: [],
-           }
-        ],
-        yAxis: {
-            max: 100,
-            min:-100
-        },
-        plotOptions: {          
-            line: {
-                marker: {
-                    enabled: false
-                }
-            }
-          /*series: {
-            point: {
-              events: {
-                mouseOver: this.setHoverData.bind(this)
-              }
-            }
-          }*/
-        }
-      },
-      chartOptions2: {
-          title: {
-            text: 'My stock chart'
-          },
-          series: [{
-            data: [1, 2, 3]
-          }]
-        },
-      
-      hoverData: null
+      lineChart: {},
+      barChart: {},
+      singleBarChart: {},
+      length: 0
     };
-   // this.updateSeries = this.updateSeries.bind(this);
   }
-
-  //setHoverData = (e) => { 
-  //  // The chart is not updated because `chartOptions` has not changed.
-  //  this.setState({ hoverData: e.target.category })
-  //}
 
 
 callBackendAPI = async () => {
@@ -77,96 +178,72 @@ callBackendAPI = async () => {
     return body;
 };
 
-  componentDidMount() {  
+  componentDidMount() {    
     this.callBackendAPI()
       .then(res => this.setState({ 
           signal1: res.signal1,
+          signal2: res.signal2,
           length: res.length 
         },
         () => {
           const draw = setInterval(() => {  
-            const { signal1, signal2, step, data, date, length } = this.state; 
-            const dataArray = parseInt(signal1[step+1]);
-            const newDate = new Date();
-            if (step > 50){
-                this.setState({
-                    data: data.shift(),
-                    //data2: data2.shift(),
-                    date: date.shift()
-                });  
-            }
-            //updateSeries = () => {
-                // The chart is updated only with new options.
-                this.setState({ 
-                  chartOptions1: {
-                    series: [
-                      { data: data }
-                    ],
-                    xAxis: {
-                        categories: date
-                    },
-                  },
-                  data: [...data, dataArray],
-                  step: step + 1,
-                  date: [...date, newDate.getSeconds()],
-                });
-                console.log(this.state.dataArray);
-             // }
-            /*const {
-              dataFile,
+            const {
+              signal1,
+              signal2,
               step,
-              data,
+              data1,
               data2,
-              date
-            } = this.state;*/
-
-            /*const newData = [...dataFile.slice(step, step+1)]; 
-            const newData2 = [...dataFile.slice(step+10, step+11)];
-            const newDate = new Date(); */
-            /*if (step > 50){
+              date,
+              length
+            } = this.state;
+            const newData1 = signal1[step+1].toString(); 
+            const newData2 = signal2[step+1].toString();
+            const newDate = new Date(); 
+            if (step > 50){
               this.setState({
-                  data: data.shift(),
+                  data1: data1.shift(),
                   data2: data2.shift(),
                   date: date.shift()
               });  
-            }*/
-
-            if (step >= length-2) clearInterval(draw);
+            }
+            
+            this.setState({
+                  data1: [...data1, newData1],
+                  data2: [...data2, newData2],
+                  date: [...date, newDate.getSeconds()],
+                  singleBarChart: singleChartDataFunction(newData1, newData2, date),
+                  barChart: chartDataFunction(data1, data2, date),
+                  lineChart: chartDataFunction(data1, data2, date),
+                  step: step + 1         
+             });    
+       
+             if (step >= length-2) clearInterval(draw);
           }, 100);    
         }
       ))      
       .catch(err => console.log(err));
   }
 
-    componentDidUpdate() { 
-  } 
-    componentWillUnmount() {
-  }  
-
-  render() {  
-    const { chartOptions1, hoverData } = this.state; 
+  render() {   
 
     return (
-      <div className="App" style={{ width: "100%", height: "2000px"}}>
+      <div className="App" style={{ width: "100%", height: "1000px"}}>
         <div style={{ width: "75%", height: "50%", display: "flex" }}>
-          <HighchartsReact
-              options={chartOptions1}
-              highcharts={Highcharts}
-              //constructorType={'mapChart'}
-              //allowChartUpdate={true}
-              //updateArgs={[true, true, true]}
-              containerProps={{className: 'chartContainer'}}
-              callback={this.chartCallback}
-          />
+          <Line             
+              data={this.state.lineChart}      
+              options={options}        
+          />    
           <div style={{ width: "25%", height: "200%" }}>        
-          
+          <Bar            
+              data={this.state.singleBarChart}      
+              options={options}        
+            />
           </div>        
         </div>          
         <div style={{ width: "75%", height: "50%" }}>
-          <HighchartsReact
-            highcharts={HighchartsStock}
-            constructorType={'stockChart'}
-            options={chartOptions1}
+          <Bar            
+              data={this.state.barChart}      
+              options={options}        
           />
         </div>       
       </div>

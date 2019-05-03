@@ -1,0 +1,17 @@
+Plottanje grafova u ReactJS
+
+ChartJS:
+- Najpopularniji i najodržavaniji Javascript library za plottanje grafova.
+- Najbolje performanse, lako implementirano (wrapper za React)
+
+Highcharts:
+- Dobar library s dobrim performansama
+- Lako implementirano
+
+Amcharts:
+- Lako implementirano
+- Lošije performanse
+
+- Neuspješna instalacija par library-ja
+
+Zaključak: ChartJS
