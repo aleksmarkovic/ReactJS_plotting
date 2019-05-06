@@ -3,7 +3,6 @@ import Highcharts from 'highcharts'
 import HighchartsStock from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -38,13 +37,6 @@ class App extends Component {
                     enabled: false
                 }
             }
-          /*series: {
-            point: {
-              events: {
-                mouseOver: this.setHoverData.bind(this)
-              }
-            }
-          }*/
         }
       },
       chartOptions2: {
@@ -58,15 +50,11 @@ class App extends Component {
       
       hoverData: null
     };
-   // this.updateSeries = this.updateSeries.bind(this);
   }
-
   //setHoverData = (e) => { 
   //  // The chart is not updated because `chartOptions` has not changed.
   //  this.setState({ hoverData: e.target.category })
   //}
-
-
 callBackendAPI = async () => {
     const response = await fetch('/express_backend');
     const body = await response.json();
@@ -91,12 +79,9 @@ callBackendAPI = async () => {
             if (step > 50){
                 this.setState({
                     data: data.shift(),
-                    //data2: data2.shift(),
                     date: date.shift()
                 });  
             }
-            //updateSeries = () => {
-                // The chart is updated only with new options.
                 this.setState({ 
                   chartOptions1: {
                     series: [
@@ -110,26 +95,7 @@ callBackendAPI = async () => {
                   step: step + 1,
                   date: [...date, newDate.getSeconds()],
                 });
-                console.log(this.state.dataArray);
-             // }
-            /*const {
-              dataFile,
-              step,
-              data,
-              data2,
-              date
-            } = this.state;*/
-
-            /*const newData = [...dataFile.slice(step, step+1)]; 
-            const newData2 = [...dataFile.slice(step+10, step+11)];
-            const newDate = new Date(); */
-            /*if (step > 50){
-              this.setState({
-                  data: data.shift(),
-                  data2: data2.shift(),
-                  date: date.shift()
-              });  
-            }*/
+                console.log(this.state.dataArray);       
 
             if (step >= length-2) clearInterval(draw);
           }, 100);    
@@ -137,11 +103,6 @@ callBackendAPI = async () => {
       ))      
       .catch(err => console.log(err));
   }
-
-    componentDidUpdate() { 
-  } 
-    componentWillUnmount() {
-  }  
 
   render() {  
     const { chartOptions1, hoverData } = this.state; 

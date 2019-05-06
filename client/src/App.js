@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-//import { defaults } from 'react-chartjs-2';
-
 
 function chartDataFunction(stateData, stateData2, stateDate) {
   return {
@@ -10,12 +8,6 @@ function chartDataFunction(stateData, stateData2, stateDate) {
     datasets: [
       {
         label: 'Signal 1',
-        /*fillColor: 'rgba(220,220,220,0.2)',
-        strokeColor: 'rgba(220,220,220,1)',
-        pointColor: 'rgba(220,220,220,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',*/
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -37,12 +29,6 @@ function chartDataFunction(stateData, stateData2, stateDate) {
       },
       {
         label: 'Signal 2',
-        /*fillColor: 'rgba(151,187,205,0.2)',
-        strokeColor: 'rgba(151,187,205,1)',
-        pointColor: 'rgba(151,187,205,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(151,187,205,1)',*/
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(175,92,92,0.4)',
@@ -72,12 +58,6 @@ function singleChartDataFunction(stateData, stateData2, stateDate) {
     datasets: [
       {
         label: 'Signal 1',
-        /*fillColor: 'rgba(220,220,220,0.2)',
-        strokeColor: 'rgba(220,220,220,1)',
-        pointColor: 'rgba(220,220,220,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',*/
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -99,12 +79,6 @@ function singleChartDataFunction(stateData, stateData2, stateDate) {
       },
       {
         label: 'Signal 2',
-        /*fillColor: 'rgba(151,187,205,0.2)',
-        strokeColor: 'rgba(151,187,205,1)',
-        pointColor: 'rgba(151,187,205,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(151,187,205,1)',*/
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(175,92,92,0.4)',
@@ -128,8 +102,7 @@ function singleChartDataFunction(stateData, stateData2, stateDate) {
   }
 }
 
-const options = {
-  
+const options = {  
   animation: false,
   responsive: true,
   maintainAspectRatio: false,
